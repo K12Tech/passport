@@ -148,7 +148,7 @@ class Token extends Model
      */
     public function revoke()
     {
-        return $this->forceFill(['revoked' => true])->save();
+        return $this->forceFill(['revoked' => 'true'])->save();
     }
 
     /**

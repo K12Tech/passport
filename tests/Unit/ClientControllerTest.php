@@ -48,7 +48,7 @@ class ClientControllerTest extends TestCase
 
         $clients->shouldReceive('create')
             ->once()
-            ->with(1, 'client name', 'http://localhost', null, false, false, true)
+            ->with(1, 'client name', 'http://localhost', null, 'false', 'false', 'true')
             ->andReturn($client = new Client);
 
         $redirectRule = m::mock(RedirectRule::class);

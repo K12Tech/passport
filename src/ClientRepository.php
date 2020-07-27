@@ -110,7 +110,7 @@ class ClientRepository
      * @param  bool  $confidential
      * @return \Laravel\Passport\Client
      */
-    public function create($userId, $name, $redirect, $provider = null, $personalAccess = false, $password = false, $confidential = true)
+    public function create($userId, $name, $redirect, $provider = null, $personalAccess = 'false', $password = 'false', $confidential = 'true')
     {
         $client = Passport::client()->forceFill([
             'user_id' => $userId,
@@ -120,7 +120,7 @@ class ClientRepository
             'redirect' => $redirect,
             'personal_access_client' => $personalAccess,
             'password_client' => $password,
-            'revoked' => false,
+            'revoked' => 'false',
         ]);
 
         $client->save();
@@ -138,7 +138,7 @@ class ClientRepository
      */
     public function createPersonalAccessClient($userId, $name, $redirect)
     {
-        return tap($this->create($userId, $name, $redirect, null, true), function ($client) {
+        return tap($this->create($userId, $name, $redirect, null, 'true'), function ($client) {
             $accessClient = Passport::personalAccessClient();
             $accessClient->client_id = $client->id;
             $accessClient->save();
@@ -156,7 +156,7 @@ class ClientRepository
      */
     public function createPasswordGrantClient($userId, $name, $redirect, $provider = null)
     {
-        return $this->create($userId, $name, $redirect, $provider, false, true);
+        return $this->create($userId, $name, $redirect, $provider, 'false', 'true');
     }
 
     /**
@@ -212,8 +212,8 @@ class ClientRepository
      */
     public function delete(Client $client)
     {
-        $client->tokens()->update(['revoked' => true]);
+        $client->tokens()->update(['revoked' => 'true']);
 
-        $client->forceFill(['revoked' => true])->save();
+        $client->forceFill(['revoked' => 'true'])->save();
     }
 }

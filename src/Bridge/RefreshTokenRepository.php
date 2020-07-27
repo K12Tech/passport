@@ -53,7 +53,7 @@ class RefreshTokenRepository implements RefreshTokenRepositoryInterface
         $this->refreshTokenRepository->create([
             'id' => $id = $refreshTokenEntity->getIdentifier(),
             'access_token_id' => $accessTokenId = $refreshTokenEntity->getAccessToken()->getIdentifier(),
-            'revoked' => false,
+            'revoked' => 'false',
             'expires_at' => $refreshTokenEntity->getExpiryDateTime(),
         ]);
 

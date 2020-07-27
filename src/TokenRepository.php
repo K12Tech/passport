@@ -62,7 +62,7 @@ class TokenRepository
     {
         return $client->tokens()
                     ->whereUserId($user->getAuthIdentifier())
-                    ->where('revoked', 0)
+                    ->where('revoked', 'false')
                     ->where('expires_at', '>', Carbon::now())
                     ->first();
     }
@@ -86,7 +86,7 @@ class TokenRepository
      */
     public function revokeAccessToken($id)
     {
-        return Passport::token()->where('id', $id)->update(['revoked' => true]);
+        return Passport::token()->where('id', $id)->update(['revoked' => 'true']);
     }
 
     /**
@@ -115,7 +115,7 @@ class TokenRepository
     {
         return $client->tokens()
                       ->whereUserId($user->getAuthIdentifier())
-                      ->where('revoked', 0)
+                      ->where('revoked', 'false')
                       ->where('expires_at', '>', Carbon::now())
                       ->latest('expires_at')
                       ->first();
